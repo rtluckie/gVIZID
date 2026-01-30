@@ -1,14 +1,14 @@
 version: 2
-project_name: gvizid
+project_name: vizid
 
 before:
   hooks:
     - go mod tidy
 
 builds:
-  - id: gvizid
+  - id: vizid
     main: ./cmd/vizid
-    binary: gvizid
+    binary: vizid
     ldflags:
       - "-s -w -X main.version={{ .Version }}"
     env:
@@ -38,11 +38,11 @@ checksum:
   name_template: "checksums.txt"
 
 brews:
-  - name: gvizid
+  - name: vizid
     homepage: "https://github.com/rtluckie/gVIZID"
     description: "VIZID: visual, sortable timestamps + IDs"
     license: "MIT"
-    directory: "Formula/rtluckie/gvizid"
+    directory: "Formula/rtluckie/vizid"
     repository:
       owner: rtluckie
       name: homebrew-tap
@@ -54,7 +54,7 @@ scoops:
   - repository:
       owner: rtluckie
       name: scoop-bucket
-    directory: "bucket/rtluckie/gvizid"
+    directory: "bucket/rtluckie/vizid"
     homepage: "https://github.com/rtluckie/gVIZID"
     description: "VIZID: visual, sortable timestamps + IDs"
     license: "MIT"

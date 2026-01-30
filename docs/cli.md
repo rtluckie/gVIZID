@@ -2,7 +2,7 @@
 
 The CLI is built with Cobra + Viper.
 
-Binary name: `gvizid`
+Binary name: `vizid`
 
 ## Config
 
@@ -34,7 +34,7 @@ components:
 
 ## Commands
 
-### `gvizid gen`
+### `vizid gen`
 
 Generate a new VIZID (prints visual form).
 
@@ -59,7 +59,7 @@ Flags:
   - `--ms`
   - `--uuid`
 
-### `gvizid decode <vizid>`
+### `vizid decode <vizid>`
 
 Decode a VIZID into its ASCII form:
 
@@ -67,7 +67,7 @@ Decode a VIZID into its ASCII form:
 YYYYMMDDhhmmssmmm-PTTCCR
 ```
 
-### `gvizid encode <ascii>`
+### `vizid encode <ascii>`
 
 Encode an ASCII ID into VIZ form.
 

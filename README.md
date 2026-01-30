@@ -97,15 +97,24 @@ make build
 ### 'Round Trip'
 
 ```
-./bin/gvizid gen
+./bin/vizid gen
 ⊡◭◈□◍⟐□◣□◭◮◢-✱◮◢□□◔
 
-./bin/gvizid decode
+./bin/vizid decode
 20260130122520780-@LO00Y
 
-./bin/gvizid encode
+./bin/vizid encode
 ⊡◭◈□◍⟐□◣□◭◮◢-✱◮◢□□◔
 ```
+---
+
+## Ports
+
+Reference implementation: `vizid` (formerly `gvizid`).
+
+- Rust: [rVIZID](https://github.com/rtluckie/rVIZID)
+- Python: [pyvizid](https://github.com/rtluckie/pyvizid)
+
 ---
 
 ## Quick status
