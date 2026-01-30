@@ -50,14 +50,14 @@ brews:
       name: "goreleaserbot"
       email: "goreleaser@users.noreply.github.com"
 
-scoop:
-  bucket:
-    owner: rtluckie
-    name: scoop-bucket
-  folder: "rtluckie/gvizid"
-  homepage: "https://github.com/rtluckie/gVIZID"
-  description: "VIZID: visual, sortable timestamps + IDs"
-  license: "MIT"
+scoops:
+  - repository:
+      owner: rtluckie
+      name: scoop-bucket
+    directory: "bucket/rtluckie/gvizid"
+    homepage: "https://github.com/rtluckie/gVIZID"
+    description: "VIZID: visual, sortable timestamps + IDs"
+    license: "MIT"
 
 release:
   prerelease: auto
