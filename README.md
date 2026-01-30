@@ -100,10 +100,10 @@ make build
 ./bin/vizid gen
 ⊡◭◈□◍⟐□◣□◭◮◢-✱◮◢□□◔
 
-./bin/vizid decode
+./bin/vizid decode '⊡◭◈□◍⟐□◣□◭◮◢-✱◮◢□□◔'
 20260130122520780-@LO00Y
 
-./bin/vizid encode
+./bin/vizid encode '20260130122520780-@LO00Y'
 ⊡◭◈□◍⟐□◣□◭◮◢-✱◮◢□□◔
 ```
 ---
@@ -136,21 +136,12 @@ Done:
 
 Planned:
 
-<<<<<<< HEAD
-- multiple config formats (toml, yaml, json, etc)
-- allow users to specify own glyph set in config
-  - we should sort for them to ensure ordering
-- add alternative "glyph set" faces, animals, different groups
-- make default CLI command generate a code (`vizid` should spit out a code)
-- add functionality so it can be used as a composable library for other projects
-=======
 - support multiple config formats (TOML, YAML, JSON)
 - allow users to define custom glyph sets in config
   - sort/normalize glyph ordering to preserve lexicographic sorting
 - add alternative glyph sets (faces, animals, themed groups)
 - make the default CLI invocation generate an ID (`vizid` should output a code)
 - expose a composable library API for third-party integrations
->>>>>>> 797bc56 (docs: add TODO and contributing deets)
 
 ---
 
