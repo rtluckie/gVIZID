@@ -18,41 +18,85 @@ var (
 	compSecond bool
 	compMs     bool
 	compUUID   bool
+	userDefined bool
 )
 
 var genCmd = &cobra.Command{
 	Use:   "gen",
 	Short: "Generate a new VIZID (visual form, suitable for filenames)",
 	RunE: func(cmd *cobra.Command, args []string) error {
+		components := model.Components{
+			Year:   viper.GetBool("components.year"),
+			Month:  viper.GetBool("components.month"),
+			Day:    viper.GetBool("components.day"),
+			Hour:   viper.GetBool("components.hour"),
+			Minute: viper.GetBool("components.minute"),
+			Second: viper.GetBool("components.second"),
+			Ms:     viper.GetBool("components.ms"),
+			UUID:   viper.GetBool("components.uuid"),
+		}
+
+		if userDefined {
+			components = model.Components{}
+			if cmd.Flags().Changed("year") {
+				components.Year = compYear
+			}
+			if cmd.Flags().Changed("month") {
+				components.Month = compMonth
+			}
+			if cmd.Flags().Changed("day") {
+				components.Day = compDay
+			}
+			if cmd.Flags().Changed("hour") {
+				components.Hour = compHour
+			}
+			if cmd.Flags().Changed("minute") {
+				components.Minute = compMinute
+			}
+			if cmd.Flags().Changed("second") {
+				components.Second = compSecond
+			}
+			if cmd.Flags().Changed("ms") {
+				components.Ms = compMs
+			}
+			if cmd.Flags().Changed("uuid") {
+				components.UUID = compUUID
+			}
+		} else {
+			if cmd.Flags().Changed("year") {
+				components.Year = compYear
+			}
+			if cmd.Flags().Changed("month") {
+				components.Month = compMonth
+			}
+			if cmd.Flags().Changed("day") {
+				components.Day = compDay
+			}
+			if cmd.Flags().Changed("hour") {
+				components.Hour = compHour
+			}
+			if cmd.Flags().Changed("minute") {
+				components.Minute = compMinute
+			}
+			if cmd.Flags().Changed("second") {
+				components.Second = compSecond
+			}
+			if cmd.Flags().Changed("ms") {
+				components.Ms = compMs
+			}
+			if cmd.Flags().Changed("uuid") {
+				components.UUID = compUUID
+			}
+		}
+
 		opts := model.Options{
 			Timezone: viper.GetString("timezone"),
 			Warn:     viper.GetBool("warn"),
-			Custom:   viper.GetBool("custom"),
-			Components: model.Components{
-				Year:   viper.GetBool("components.year"),
-				Month:  viper.GetBool("components.month"),
-				Day:    viper.GetBool("components.day"),
-				Hour:   viper.GetBool("components.hour"),
-				Minute: viper.GetBool("components.minute"),
-				Second: viper.GetBool("components.second"),
-				Ms:     viper.GetBool("components.ms"),
-				UUID:   viper.GetBool("components.uuid"),
-			},
+			Custom:   viper.GetBool("custom") || userDefined,
+			Components: components,
 		}
 
-		// If custom mode is enabled, override from flags.
-		if opts.Custom {
-			opts.Components.Year = compYear
-			opts.Components.Month = compMonth
-			opts.Components.Day = compDay
-			opts.Components.Hour = compHour
-			opts.Components.Minute = compMinute
-			opts.Components.Second = compSecond
-			opts.Components.Ms = compMs
-			opts.Components.UUID = compUUID
-		}
-
-		id, ascii, warnMsg, err := generator.Generate(opts)
+		id, _, warnMsg, err := generator.Generate(opts)
 		if err != nil {
 			return err
 		}
@@ -60,7 +104,6 @@ var genCmd = &cobra.Command{
 			fmt.Println("WARN:", warnMsg)
 		}
 		fmt.Println(id)
-		fmt.Println(ascii)
 		return nil
 	},
 }
@@ -68,6 +111,7 @@ var genCmd = &cobra.Command{
 func init() {
 	rootCmd.AddCommand(genCmd)
 
+	genCmd.Flags().BoolVarP(&userDefined, "user-defined", "u", false, "start with all components disabled; explicitly enable each component")
 	genCmd.Flags().BoolVar(&compYear, "year", true, "include year")
 	genCmd.Flags().BoolVar(&compMonth, "month", true, "include month")
 	genCmd.Flags().BoolVar(&compDay, "day", true, "include day")
@@ -77,12 +121,5 @@ func init() {
 	genCmd.Flags().BoolVar(&compMs, "ms", true, "include milliseconds")
 	genCmd.Flags().BoolVar(&compUUID, "uuid", true, "include uuid")
 
-	_ = viper.BindPFlag("components.year", genCmd.Flags().Lookup("year"))
-	_ = viper.BindPFlag("components.month", genCmd.Flags().Lookup("month"))
-	_ = viper.BindPFlag("components.day", genCmd.Flags().Lookup("day"))
-	_ = viper.BindPFlag("components.hour", genCmd.Flags().Lookup("hour"))
-	_ = viper.BindPFlag("components.minute", genCmd.Flags().Lookup("minute"))
-	_ = viper.BindPFlag("components.second", genCmd.Flags().Lookup("second"))
-	_ = viper.BindPFlag("components.ms", genCmd.Flags().Lookup("ms"))
-	_ = viper.BindPFlag("components.uuid", genCmd.Flags().Lookup("uuid"))
+	_ = viper.BindPFlag("custom", genCmd.Flags().Lookup("user-defined"))
 }

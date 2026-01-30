@@ -61,9 +61,6 @@ func Generate(opts model.Options) (vizID string, asciiWire string, warnMsg strin
 // v1 field widths: Year=3, Month=1, Day=1, Hour=1, Minute=2, Second=2, Ms=2  (12 total glyphs).
 func encodeTimestamp(t time.Time, c model.Components) (viz string, asciiWire string, err error) {
 	year := int64(t.Year())
-	if year < 0 || year > 9999 {
-		return "", "", fmt.Errorf("year out of v1 range: %d", year)
-	}
 	month := int64(t.Month()) - 1 // 0..11
 	day := int64(t.Day()) - 1     // 0..30
 	hour := int64(t.Hour())       // 0..23
@@ -71,8 +68,51 @@ func encodeTimestamp(t time.Time, c model.Components) (viz string, asciiWire str
 	sec := int64(t.Second())      // 0..59
 	ms := int64(t.Nanosecond() / 1e6)
 
+	asciiYear := fmt.Sprintf("%04d", t.Year())
+	asciiMonth := fmt.Sprintf("%02d", int(t.Month()))
+	asciiDay := fmt.Sprintf("%02d", t.Day())
+	asciiHour := fmt.Sprintf("%02d", t.Hour())
+	asciiMinute := fmt.Sprintf("%02d", t.Minute())
+	asciiSecond := fmt.Sprintf("%02d", t.Second())
+	asciiMs := fmt.Sprintf("%03d", ms)
+
+	if !c.Year {
+		year = 0
+		asciiYear = "0000"
+	}
+	if !c.Month {
+		month = 0
+		asciiMonth = "00"
+	}
+	if !c.Day {
+		day = 0
+		asciiDay = "00"
+	}
+	if !c.Hour {
+		hour = 0
+		asciiHour = "00"
+	}
+	if !c.Minute {
+		min = 0
+		asciiMinute = "00"
+	}
+	if !c.Second {
+		sec = 0
+		asciiSecond = "00"
+	}
+	if !c.Ms {
+		ms = 0
+		asciiMs = "000"
+	}
+
+	if c.Year {
+		if year < 0 || year > 9999 {
+			return "", "", fmt.Errorf("year out of v1 range: %d", year)
+		}
+	}
+
 	// ASCII wire timestamp remains decimal digits for human typing/logs.
-	asciiWire = fmt.Sprintf("%04d%02d%02d%02d%02d%02d%03d", t.Year(), int(t.Month()), t.Day(), t.Hour(), t.Minute(), t.Second(), ms)
+	asciiWire = asciiYear + asciiMonth + asciiDay + asciiHour + asciiMinute + asciiSecond + asciiMs
 
 	// Encode in base36 fixed widths
 	y3, err := codec.ToBase36(year, 3); if err != nil { return "", "", err }
@@ -96,9 +136,6 @@ func encodeTimestamp(t time.Time, c model.Components) (viz string, asciiWire str
 		runes = append(runes, g)
 	}
 	viz = string(runes)
-
-	// TODO: component toggles (custom mode) — v1 scaffold keeps full timestamp.
-	_ = c
 	return viz, asciiWire, nil
 }
 

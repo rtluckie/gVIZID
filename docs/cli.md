@@ -41,10 +41,15 @@ Generate a new VIZID (prints visual form).
 Flags:
 
 - `--config, -c` alternate config file
-- `--timezone, -tz` timezone (default `UTC`)
-- `--custom, -C` enable custom component selection
+- `--timezone, -t` timezone (default `UTC`)
+- `--user-defined, -u` toggles all components off, user must define what components they want.
 - `--warn` warn if sort order may break
-- component toggles (bool):
+
+- component toggles (bool)[default=`TRUE`]:
+
+  Allows the default (and user defined config) components to be toggled on/off
+  When used in combination is the `--user-defined` / `-u` flag.
+  When `-u` is passed all components are turned off
   - `--year`
   - `--month`
   - `--day`

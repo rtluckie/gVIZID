@@ -12,7 +12,6 @@ var (
 	cfgFile  string
 	tzFlag   string
 	warnFlag bool
-	custom   bool
 )
 
 var rootCmd = &cobra.Command{
@@ -32,13 +31,11 @@ func init() {
 	cobra.OnInitialize(initConfig)
 
 	rootCmd.PersistentFlags().StringVarP(&cfgFile, "config", "c", "", "config file (default is ~/.config/vizid/config.yaml)")
-	rootCmd.PersistentFlags().StringVarP(&tzFlag, "timezone", "tz", "UTC", "timezone (IANA name like America/Chicago, UTC offset like +02:00, or UTC)")
+	rootCmd.PersistentFlags().StringVarP(&tzFlag, "timezone", "t", "UTC", "timezone (IANA name like America/Chicago, UTC offset like +02:00, or UTC)")
 	rootCmd.PersistentFlags().BoolVar(&warnFlag, "warn", true, "warn if sort order might be broken by custom component selection")
-	rootCmd.PersistentFlags().BoolVarP(&custom, "custom", "C", false, "enable custom component selection flags")
 
 	_ = viper.BindPFlag("timezone", rootCmd.PersistentFlags().Lookup("timezone"))
 	_ = viper.BindPFlag("warn", rootCmd.PersistentFlags().Lookup("warn"))
-	_ = viper.BindPFlag("custom", rootCmd.PersistentFlags().Lookup("custom"))
 }
 
 func initConfig() {

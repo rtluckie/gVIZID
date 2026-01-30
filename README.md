@@ -68,12 +68,10 @@ This repo includes a Go CLI scaffold using **Cobra + Viper**.
 - config defaults at: `~/.config/vizid/config.yaml`
 - flags:
   - `--config, -c` alternate config file
-  - `--timezone, -tz` timezone (default `UTC`)
-  - `--custom, -C` enable/disable components (see below)
+  - `--timezone, -t` timezone (default `UTC`)
+  - `--user-defined, -u` start with all components disabled
   - per-component toggles (bool): `--year --month --day --hour --minute --second --ms --uuid`
   - `--warn` warn if your chosen components would break sort order
-
-> Note: `-c` is reserved for `--config`. `--custom` uses `-C`.
 
 ---
 
@@ -86,6 +84,28 @@ This repo includes a Go CLI scaffold using **Cobra + Viper**.
 - `docs/examples.md` — worked examples + sort demonstrations
 - `docs/font-compat.md` — practical rendering notes + “known good” fonts
 
+---
+
+## Usage
+
+### Building
+
+```
+make build
+```
+
+### 'Round Trip'
+
+```
+./bin/vizid gen
+⊡◭◈□◍⟐□◣□◭◮◢-✱◮◢□□◔
+
+./bin/vizid decode
+20260130122520780-@LO00Y
+
+./bin/vizid encode
+⊡◭◈□◍⟐□◣□◭◮◢-✱◮◢□□◔
+```
 ---
 
 ## Quick status
