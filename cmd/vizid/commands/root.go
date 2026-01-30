@@ -15,9 +15,13 @@ var (
 )
 
 var rootCmd = &cobra.Command{
-	Use:   "vizid",
+	Use:   "gvizid",
 	Short: "VIZID: visual, sortable timestamps + IDs (Unicode filenames)",
 	Long:  "Generate and decode VIZIDs (visual IDs) designed to sort correctly in filenames.",
+}
+
+func SetVersion(v string) {
+	rootCmd.Version = v
 }
 
 func Execute() {

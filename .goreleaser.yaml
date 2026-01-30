@@ -1,0 +1,70 @@
+project_name: gvizid
+
+before:
+  hooks:
+    - go mod tidy
+
+builds:
+  - id: gvizid
+    main: ./cmd/vizid
+    binary: gvizid
+    ldflags:
+      - "-s -w -X main.version={{ .Version }}"
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - linux
+      - darwin
+      - windows
+    goarch:
+      - amd64
+      - arm64
+      - 386
+    ignore:
+      - goos: darwin
+        goarch: 386
+      - goos: windows
+        goarch: arm64
+
+archives:
+  - format: tar.gz
+    name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
+    format_overrides:
+      - goos: windows
+        format: zip
+
+checksum:
+  name_template: "checksums.txt"
+
+brews:
+  - name: gvizid
+    homepage: "https://github.com/rtluckie/gVIZID"
+    description: "VIZID: visual, sortable timestamps + IDs"
+    license: "MIT"
+    directory: "Formula/rtluckie/gvizid"
+    repository:
+      owner: rtluckie
+      name: homebrew-tap
+    commit_author:
+      name: "goreleaserbot"
+      email: "goreleaser@users.noreply.github.com"
+
+scoop:
+  bucket:
+    owner: rtluckie
+    name: scoop-bucket
+  folder: "rtluckie/gvizid"
+  homepage: "https://github.com/rtluckie/gVIZID"
+  description: "VIZID: visual, sortable timestamps + IDs"
+  license: "MIT"
+
+release:
+  prerelease: auto
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - "^docs:"
+      - "^test:"
+      - "^chore:"

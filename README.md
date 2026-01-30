@@ -97,13 +97,13 @@ make build
 ### 'Round Trip'
 
 ```
-./bin/vizid gen
+./bin/gvizid gen
 ⊡◭◈□◍⟐□◣□◭◮◢-✱◮◢□□◔
 
-./bin/vizid decode
+./bin/gvizid decode
 20260130122520780-@LO00Y
 
-./bin/vizid encode
+./bin/gvizid encode
 ⊡◭◈□◍⟐□◣□◭◮◢-✱◮◢□□◔
 ```
 ---

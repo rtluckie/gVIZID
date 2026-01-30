@@ -1,4 +1,4 @@
-BINARY=vizid
+BINARY=gvizid
 
 .PHONY: build test lint run
 
