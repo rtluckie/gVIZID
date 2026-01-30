@@ -1,4 +1,4 @@
-# VIZID / VIZSTAMP — visual timestamps that *sort right*
+# gVIZID — visual timestamps that *sort right* (golang)
 
 **VIZID** is a filename-friendly ID format that combines:
 
