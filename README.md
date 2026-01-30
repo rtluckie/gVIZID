@@ -1,4 +1,4 @@
-# gVIZID — visual timestamps that *sort right* (golang)
+# VIZID — visual timestamps that *sort right* (golang)
 
 **VIZID** is a filename-friendly ID format that combines:
 
@@ -110,7 +110,7 @@ make build
 
 ## Ports
 
-Reference implementation: `vizid` (formerly `gvizid`).
+Reference implementation (Go): `vizid` (formerly `gvizid`).
 
 - Rust: [rVIZID](https://github.com/rtluckie/rVIZID)
 - Python: [pyvizid](https://github.com/rtluckie/pyvizid)
@@ -123,6 +123,31 @@ Reference implementation: `vizid` (formerly `gvizid`).
 - ✅ Go project layout + CLI scaffold
 - ✅ reference mapping tables (v1)
 - ⏳ full implementation (planned next)
+
+---
+
+## TODO
+
+Done:
+
+- specification + docs (v1)
+- Go CLI scaffold
+- reference mapping tables (v1)
+
+Planned:
+
+- multiple config formats (toml, yaml, json, etc)
+- allow users to specify own glyph set in config
+  - we should sort for them to ensure ordering
+- add alternative "glyph set" faces, animals, different groups
+- make default CLI command generate a code (`vizid` should spit out a code)
+- add functionality so it can be used as a composable library for other projects
+
+---
+
+## Contributing
+
+Feedback and PRs are welcome. If you're adding behavior that affects IDs, please keep the interface consistent across ports and update docs accordingly. See [`CONTRIBUTING.md`](CONTRIBUTING.md) for the lightweight process.
 
 ---
 
